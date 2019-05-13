@@ -39,6 +39,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
+    return value.length;
     throw new Error('Not implemented');
 }
 
@@ -56,6 +57,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
+    return `Hello, ${firstName} ${lastName}!`;
     throw new Error('Not implemented');
 }
 
@@ -70,6 +72,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
+    value = value.substr(7);
+    return value.replace('!','');
+
     throw new Error('Not implemented');
 }
 
@@ -85,6 +90,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
+    return value[0];
     throw new Error('Not implemented');
 }
 
@@ -100,6 +106,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
+    return value.trim();
     throw new Error('Not implemented');
 }
 
@@ -115,6 +122,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
+    return value.repeat(count);
     throw new Error('Not implemented');
 }
 
@@ -131,6 +139,10 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
+    if (str.match(value)) { 
+        str = str.replace(value, ''); 
+    }
+    return str;
     throw new Error('Not implemented');
 }
 
@@ -146,6 +158,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
+    return str.substring(1, str.length-1);
     throw new Error('Not implemented');
 }
 
@@ -161,6 +174,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
+    return str.toUpperCase();
     throw new Error('Not implemented');
 }
 
@@ -175,6 +189,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
+    return str.split(';');
     throw new Error('Not implemented');
 }
 
@@ -202,7 +217,13 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let str = String.fromCharCode(9484) + String.fromCharCode(9472).repeat(width - 2) + String.fromCharCode(9488) + "\n";
+    for (let i = 0; i < height - 2; i++) {
+        str = str + String.fromCharCode(9474) + " ".repeat(width - 2) + String.fromCharCode(9474) + "\n";
+    }
+    str = str + String.fromCharCode(9492) + String.fromCharCode(9472).repeat(width - 2) + String.fromCharCode(9496) + "\n";
+    return str;
+    
 }
 
 
@@ -222,6 +243,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
+    var input     = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var output    = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+    var index     = x => input.indexOf(x);
+    var translate = x => index(x) > -1 ? output[index(x)] : x;
+    return str.split('').map(translate).join('');
     throw new Error('Not implemented');
 }
 
@@ -239,6 +265,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
+    if (Object.prototype.toString.call(value) == '[object String]') {
+        return true
+    }
+    else
+        return false;
     throw new Error('Not implemented');
 }
 
@@ -268,6 +299,16 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
+    let cardArr = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+    'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+    'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+    'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    for (let i = 0; i < cardArr.length; i++) {
+        if (value == cardArr[i]) {
+            return i;
+        }
+        
+    }
     throw new Error('Not implemented');
 }
 
